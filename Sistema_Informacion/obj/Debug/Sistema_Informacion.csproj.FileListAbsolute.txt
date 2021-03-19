@@ -1,0 +1,2 @@
+C:\Users\black\source\repos\Sistema_Informacion\Sistema_Informacion\obj\Debug\Sistema_Informacion.csprojAssemblyReference.cache
+C:\Users\black\source\repos\Sistema_Informacion\Sistema_Informacion\obj\Debug\Sistema_Informacion.csproj.CoreCompileInputs.cache
