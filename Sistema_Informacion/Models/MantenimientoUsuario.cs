@@ -85,7 +85,7 @@ namespace Sistema_Informacion.Models
         public Usuario Recuperar(int id)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("select documento, tipodoc, nombre, celular, email, genero, aprendiz, egresado, areaformacion, fechaegresado, direccion, barrio, ciudad, departamento, fecharegistro from usuarios where id=@id", con);
+            SqlCommand comando = new SqlCommand("select id,documento, tipodoc, nombre, celular, email, genero, aprendiz, egresado, areaformacion, fechaegresado, direccion, barrio, ciudad, departamento, fecharegistro from usuarios where id=@id", con);
             comando.Parameters.Add("@id", SqlDbType.Int);
             comando.Parameters["@id"].Value = id;
             con.Open();
