@@ -24,7 +24,7 @@ namespace Sistema_Informacion.Models
             Conectar();
             SqlCommand comando = new SqlCommand("insert into usuarios(documento, tipodoc, nombre, celular, email, genero, aprendiz, egresado, areaformacion, fechaegresado, direccion, barrio, ciudad, departamento, fecharegistro) values (@documento, @tipodoc, @nombre, @celular, @email, @genero, @aprendiz, @egresado, @areaformacion, @fechaegresado, @direccion, @barrio, @ciudad, @departamento, @fecharegistro)",con);
 
-            comando.Parameters.Add("@documento", SqlDbType.Int);
+            comando.Parameters.Add("@documento", SqlDbType.VarChar);
             comando.Parameters.Add("@tipodoc", SqlDbType.VarChar);
             comando.Parameters.Add("@nombre", SqlDbType.VarChar);
             comando.Parameters.Add("@celular", SqlDbType.VarChar);
@@ -40,6 +40,22 @@ namespace Sistema_Informacion.Models
             comando.Parameters.Add("@departamento", SqlDbType.VarChar);
             comando.Parameters.Add("@fecharegistro", SqlDbType.Date);
 
+            comando.Parameters["@documento"].Value = usu.Documento;
+            comando.Parameters["@tipodoc"].Value = usu.TipoDocumento;
+            comando.Parameters["@nombre"].Value = usu.Nombre;
+            comando.Parameters["@celular"].Value = usu.Celular;
+            comando.Parameters["@email"].Value = usu.Email;      
+            comando.Parameters["@genero"].Value = usu.Genero;    
+            comando.Parameters["@aprendiz"].Value = usu.Aprendiz;
+            comando.Parameters["@egresado"].Value = usu.Egresado;
+            comando.Parameters["@areaformacion"].Value = usu.AreaFormacion;
+            comando.Parameters["@fechaegresado"].Value = usu.FechaEgresado;
+            comando.Parameters["@direccion"].Value = usu.Direccion;
+            comando.Parameters["@barrio"].Value = usu.Barrio;
+            comando.Parameters["@ciudad"].Value = usu.Ciudad;
+            comando.Parameters["@departamento"].Value = usu.Departamento;
+            comando.Parameters["@fecharegistro"].Value = usu.FechaEgresado;       
+            
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();
@@ -59,22 +75,22 @@ namespace Sistema_Informacion.Models
             {
                 Usuario usu = new Usuario
                 {
-                    ID=int.Parse(registros["id"].ToString()),
-                    Documento = int.Parse(registros["documento"].ToString()),
+                    ID=Convert.ToInt32(registros["id"]),
+                    Documento = registros["documento"].ToString(),
                     TipoDocumento = registros["tipodoc"].ToString(),
                     Nombre = registros["nombre"].ToString(),
                     Celular = registros["celular"].ToString(),
                     Email = registros["email"].ToString(),
-                    Genero = registros["celular"].ToString(),
-                    Aprendiz = bool.Parse(registros["aprendiz"].ToString()),
-                    Egresado = bool.Parse(registros["egresado"].ToString()),
+                    Genero = registros["genero"].ToString(),
+                    Aprendiz = Convert.ToInt32(registros["aprendiz"]),
+                    Egresado = Convert.ToInt32(registros["egresado"]),
                     AreaFormacion = registros["areaformacion"].ToString(),
                     FechaEgresado = DateTime.Parse(registros["fechaegresado"].ToString()),
                     Direccion = registros["direccion"].ToString(),
                     Barrio = registros["barrio"].ToString(),
                     Ciudad = registros["ciudad"].ToString(),
                     Departamento = registros["departamento"].ToString(),
-                    FechaRegistro = DateTime.Parse(registros["fechaegresado"].ToString())
+                    FechaRegistro = DateTime.Parse(registros["fecharegistro"].ToString())
                 };
                 usuarios.Add(usu);
             }
@@ -85,7 +101,7 @@ namespace Sistema_Informacion.Models
         public Usuario Recuperar(int id)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("select id,documento, tipodoc, nombre, celular, email, genero, aprendiz, egresado, areaformacion, fechaegresado, direccion, barrio, ciudad, departamento, fecharegistro from usuarios where id=@id", con);
+            SqlCommand comando = new SqlCommand("select id, documento, tipodoc, nombre, celular, email, genero, aprendiz, egresado, areaformacion, fechaegresado, direccion, barrio, ciudad, departamento, fecharegistro from usuarios where id=@id", con);
             comando.Parameters.Add("@id", SqlDbType.Int);
             comando.Parameters["@id"].Value = id;
             con.Open();
@@ -95,15 +111,15 @@ namespace Sistema_Informacion.Models
 
             if (registros.Read())
             {
-                usuarios.ID = int.Parse(registros["id"].ToString());
-                usuarios.Documento = int.Parse(registros["documento"].ToString());
+                usuarios.ID = Convert.ToInt32(registros["id"]);
+                usuarios.Documento =registros["documento"].ToString();
                 usuarios.TipoDocumento = registros["tipodoc"].ToString();
                 usuarios.Nombre = registros["nombre"].ToString();
-                usuarios.Celular = registros["celular"].ToString();
+                usuarios.Celular =registros["celular"].ToString();
                 usuarios.Email = registros["email"].ToString();
-                usuarios.Genero = registros["celular"].ToString();
-                usuarios.Aprendiz = bool.Parse(registros["aprendiz"].ToString());
-                usuarios.Egresado = bool.Parse(registros["egresado"].ToString());
+                usuarios.Genero = registros["genero"].ToString();
+                usuarios.Aprendiz = Convert.ToInt32(registros["aprendiz"]);
+                usuarios.Egresado = Convert.ToInt32(registros["egresado"]);
                 usuarios.AreaFormacion = registros["areaformacion"].ToString();
                 usuarios.FechaEgresado = DateTime.Parse(registros["fechaegresado"].ToString());
                 usuarios.Direccion = registros["direccion"].ToString();
@@ -119,14 +135,10 @@ namespace Sistema_Informacion.Models
         public int Modificar(Usuario usu)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("update es_usuario set  id=@id,documento=@documento, tipodoc=@tipodoc, nombre=@nombre, celular=@celular, email=@email, genero=@genero, aprendiz=@aprendiz, egresado=@egresado, areaformacion=@areaformacion, fechaegresado=@fechaegresado, direccion=@direccion, barrio=@barrio, ciudad=@ciudad, departamento=@departamento, fecharegistro=@fecharegistro from usuarios where id=@id",con);
-
+            SqlCommand comando = new SqlCommand("update usuarios set tipodoc=@tipodoc, nombre=@nombre, celular=@celular, email=@email, genero=@genero, aprendiz=@aprendiz, egresado=@egresado, areaformacion=@areaformacion, fechaegresado=@fechaegresado, direccion=@direccion, barrio=@barrio, ciudad=@ciudad, departamento=@departamento, fecharegistro=@fecharegistro from usuarios where id=@id",con);
 
             comando.Parameters.Add("@id", SqlDbType.Int);
             comando.Parameters["@id"].Value = usu.ID;
-
-            comando.Parameters.Add("@documento", SqlDbType.Int);
-            comando.Parameters["@documento"].Value = usu.Documento;
 
             comando.Parameters.Add("@tipodoc", SqlDbType.VarChar);
             comando.Parameters["@tipodoc"].Value = usu.TipoDocumento;
@@ -155,6 +167,9 @@ namespace Sistema_Informacion.Models
             comando.Parameters.Add("@fechaegresado", SqlDbType.Date);
             comando.Parameters["@fechaegresado"].Value = usu.FechaEgresado;
 
+            comando.Parameters.Add("@direccion", SqlDbType.VarChar);
+            comando.Parameters["@direccion"].Value = usu.Direccion;
+
             comando.Parameters.Add("@barrio", SqlDbType.VarChar);
             comando.Parameters["@barrio"].Value = usu.Barrio;
 
@@ -168,7 +183,6 @@ namespace Sistema_Informacion.Models
             comando.Parameters["@fecharegistro"].Value = usu.FechaRegistro;
 
             con.Open();
-
             int i = comando.ExecuteNonQuery();
             con.Close();
             return i;
@@ -176,7 +190,7 @@ namespace Sistema_Informacion.Models
         public int Borrar(int id)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("delete from es_usuarios where id=@id",con);
+            SqlCommand comando = new SqlCommand("delete from usuarios where id=@id",con);
             comando.Parameters.Add("@id", SqlDbType.Int);
             comando.Parameters["@id"].Value =id;
             con.Open();
