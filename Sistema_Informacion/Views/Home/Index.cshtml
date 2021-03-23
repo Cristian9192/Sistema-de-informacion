@@ -50,7 +50,7 @@
     <table class="table table-bordered border-primary" width="600" align="center">
         <tr>
             <th>
-                Documento
+                <p>Documento</p> 
             </th>
             <th>
                 Tipo Documento
@@ -119,10 +119,26 @@
                     @Html.DisplayFor(modelItem => item.Genero)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Aprendiz)
+
+                    @if ((item.Aprendiz) > 0)
+                    {
+                        <span>Sí</span>
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Egresado)
+                <td>                    
+
+                    @if ((item.Egresado) > 0)
+                    {
+                        <span>Sí</span>
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AreaFormacion)
@@ -146,15 +162,16 @@
                     @Html.DisplayFor(modelItem => item.FechaRegistro)
                 </td>
                 <td>
-                    <button id="btn-2" type="button" class="btn btn-light">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</button>
-                    <button id="btn-2" type="button" class="btn btn-light">@Html.ActionLink("Details", "Details", new { id = item.ID })</button>
-                    <button id="btn-2" type="button" class="btn btn-light">@Html.ActionLink("Delete", "Delete", new { id = item.ID })</button> 
+                    <button  type="button" class="btn btn-info">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</button>
+                    <button  type="button" class="btn btn-info">@Html.ActionLink("Details", "Details", new { id = item.ID })</button>
+                    <button  type="button" class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id = item.ID })</button> 
                    
                 </td>
             </tr>
         }
     </table>
     <form action="/" method="post">
+        <h3 class="text-center"> Copy Cristian Andres</h3>
     </form>
 </body>
 </html>
