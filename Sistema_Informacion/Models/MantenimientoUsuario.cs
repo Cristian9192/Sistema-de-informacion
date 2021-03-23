@@ -12,7 +12,7 @@ namespace Sistema_Informacion.Models
     public class MantenimientoUsuario
     {
         private SqlConnection con;
-
+        
         private void Conectar()
         {
             string constr = ConfigurationManager.ConnectionStrings["admin"].ToString();
